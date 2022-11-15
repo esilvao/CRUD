@@ -35,6 +35,32 @@ const listaArt = document.getElementById("articulos")
 recargarPagina()
 
 function recargarPagina(){ 
+  var headtable = document.getElementById("titulosgrilla")
+  if (headtable != null) {
+    var padreheadtable = headtable.parentElement
+    var abuheadtable = padreheadtable.parentElement
+    for(child in abuheadtable){
+      console.log("elimina en la pantalla el producto")
+      abuheadtable.remove(abuheadtable[child])
+    }
+  }
+  console.log("agregar en la pantalla el producto")
+  const listaArt2 = document.getElementById("articulos")
+  const divheadtable = document.createElement("div")
+  divheadtable.innerHTML=`<div class="row fw-bold head-titulo" id="titulosgrilla">
+                      <div class="col">
+                        <h4>Producto</h4>
+                      </div>
+                      <div class="col">
+                        <h4>Descripcion</h4>
+                      </div>
+                      <div class="col">
+                        <h4>Precio</h4>
+                      </div>
+                      <div class="col">
+                        <h4></h4>
+                      </div>`
+  listaArt2.appendChild(divheadtable)
   items.forEach((item, indice) => {
     mostarProductoEnPagina(item,indice)
 })
@@ -44,15 +70,12 @@ function recargarPagina(){
 const btn_crear = document.querySelector("#agregar")
 btn_crear.addEventListener("click",(e) => {
   e.preventDefault()
-  
   texto=document.getElementById("codigo").value
-  const result = items.find(({ nombre }) => nombre === texto);
-  if (result != null) {
-    result.descripcion=document.getElementById("descripcion").value,
-    result.precio= document.getElementById("precio").value,
-    result.imagen=document.getElementById("imagen").value
-    recargarPagina()
-  }else{
+  if (btn_crear.value="Modificar") {
+    Modificar(texto)
+  }
+  
+  else{
     const miProducto = {
       nombre: document.getElementById("codigo").value,
       descripcion: document.getElementById("descripcion").value,
@@ -65,6 +88,21 @@ btn_crear.addEventListener("click",(e) => {
   limpiarFormulario()
 
 })
+
+function Modificar(texto){
+  const result = items.find(({ nombre }) => nombre === texto);
+  if (result != null) {
+    result.descripcion=document.getElementById("descripcion").value,
+    result.precio= document.getElementById("precio").value,
+    result.imagen=document.getElementById("imagen").value
+
+    recargarPagina()
+  }else{
+   
+    alert("NO SE PUEDE MODIFICA " +"\n" +"El código del producto no existe para modificar: " + texto,"SSSSS")
+  }
+  limpiarFormulario()
+}
 
 function limpiarFormulario(){
   document.getElementById("codigo").value=""
@@ -128,7 +166,6 @@ function eliminarProducto(index,boton){
 function mostarProductoEnPagina(producto,indice){
   const divprod = document.createElement("div")
   if ((indice % 2) == 0){
-    alert("sin colr")
     divprod.classList.add("row")
   }else{
     divprod.classList.add("row","head-colum")
