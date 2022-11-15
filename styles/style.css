@@ -1,0 +1,71 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  color: #000000;
+  font-family: sans-serif ;
+  font-size: 14px;
+
+}
+
+.logo{
+  width: 120px;
+  height: 120px;
+}
+.empresa div{
+  font-family: 'Carter One';
+  font-size: 2rem;
+  color: #6e038c;
+}
+.empresa {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 0.5rem;
+}
+.btn_propio {
+  background-color:rgb(232, 222, 246);
+  border: 2px solid #0c6050;
+  padding: 5px;
+  color: black;
+}
+
+.btn_propio:hover {
+  background-color: #1a8d5d;
+  color: #f3f6f5;
+}
+
+body {
+  width: 100%;
+  height: auto;
+  background: #dbcedf; 
+
+ }
+label {
+  width: 150px;
+}
+
+.img-prod{
+  padding: 3px;
+  width: 60px;
+  height: 60px;
+}
+.head-colum{
+  background: #d9b9e3;
+}
+
+.head-titulo{
+  
+  background-color: #c048b8;
+}
+
+.imagen-footer{
+  width: 50px;
+  height: 50px;
+}
+.texto-page{
+  font-family: 'Carter One';
+  color: #000000;
+}
+
