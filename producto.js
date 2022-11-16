@@ -30,40 +30,53 @@ const header = document.getElementById("titulo");
 h1.className="head-titulo"
 h1.innerText = 'Listado de productos'
 header.appendChild(h1);
-const listaArt = document.getElementById("articulos")
+let listaArt = document.getElementById("articulos")
+items.forEach((item, indice) => {
+  mostarProductoEnPagina(item,indice)
+}) 
 
-recargarPagina()
 
 function recargarPagina(){ 
-  var headtable = document.getElementById("titulosgrilla")
-  if (headtable != null) {
-    var padreheadtable = headtable.parentElement
-    var abuheadtable = padreheadtable.parentElement
-    for(child in abuheadtable){
-      console.log("elimina en la pantalla el producto")
-      abuheadtable.remove(abuheadtable[child])
+  const titulos = document.getElementById("titulosgrilla")
+    if (titulos!=null) {
+      alert("Wsssssssss")
+      const titulos = document.getElementById("articulos")
+      var children = titulos.childNodes;
+      for(child in children){
+        console.log("elimina MM en la pantalla el producto")
+        titulos.remove(children[child]);
+      }
     }
-  }
-  console.log("agregar en la pantalla el producto")
-  const listaArt2 = document.getElementById("articulos")
-  const divheadtable = document.createElement("div")
-  divheadtable.innerHTML=`<div class="row fw-bold head-titulo" id="titulosgrilla">
-                      <div class="col">
-                        <h4>Producto</h4>
-                      </div>
-                      <div class="col">
-                        <h4>Descripcion</h4>
-                      </div>
-                      <div class="col">
-                        <h4>Precio</h4>
-                      </div>
-                      <div class="col">
-                        <h4></h4>
-                      </div>`
-  listaArt2.appendChild(divheadtable)
-  items.forEach((item, indice) => {
-    mostarProductoEnPagina(item,indice)
-})
+  
+    listaArt = document.getElementById("articulos")
+    if (listaArt==null) {
+      
+      listaArt = document.createElement("div")
+      listaArt.classList.add("container")
+      listaArt.setAttribute("id","articulos")
+      const sessionProd = document.getElementById("listaproducto")
+      sessionProd.appendChild(listaArt)
+      const divheadtable = document.createElement("div")
+      divheadtable.innerHTML=`<div class="row fw-bold head-titulo" id="titulosgrilla">
+                        <div class="col">
+                          <h4>Producto</h4>
+                        </div>
+                        <div class="col">
+                          <h4>Descripcion</h4>
+                        </div>
+                        <div class="col">
+                          <h4>Precio</h4>
+                        </div>
+                        <div class="col">
+                          <h4></h4>
+                        </div>`
+                        alert("ADD titulos")
+                        listaArt.appendChild(divheadtable)
+      items.forEach((item, indice) => {
+        console.log(" Mostrar en en la pantalla el producto")
+        mostarProductoEnPagina(item,indice)
+      }) 
+    } 
 }
 
 /* Crea un producto con los datos ingresados desde el formulario */
