@@ -63,7 +63,6 @@ mantenedor()
 function recargarPagina(){ 
   const titulos = document.getElementById("titulosgrilla")
     if (titulos!=null) {
-      alert("Wsssssssss")
       const titulos = document.getElementById("articulos")
       var children = titulos.childNodes;
       for(child in children){
@@ -94,7 +93,7 @@ function recargarPagina(){
                         <div class="col">
                           <h4></h4>
                         </div>`
-                        alert("ADD titulos")
+                        
                         listaArt.appendChild(divheadtable)
       items.forEach((item, indice) => {
         console.log(" Mostrar en en la pantalla el producto")
@@ -109,11 +108,18 @@ const btn_crear = document.querySelector("#agregar")
 btn_crear.addEventListener("click",(e) => {
   e.preventDefault()
   texto=document.getElementById("codigo").value
-  if (btn_crear.value="Modificar") {
+  if (btn_crear.value=="Modificar") {
     Modificar(texto)
   }
   
   else{
+    if ((document.getElementById("codigo").value=="") || 
+      (document.getElementById("descripcion").value=="") ||
+      (document.getElementById("precio").value=="") ||
+      (document.getElementById("imagen").value=="")) {
+alert("Nuevo Registro"+ "/n"+ "No puede tener datos en blanco"+ "/n")
+    }
+
     const miProducto = {
       nombre: document.getElementById("codigo").value,
       descripcion: document.getElementById("descripcion").value,
@@ -139,6 +145,7 @@ function Modificar(texto){
   }else{
    
     alert("NO SE PUEDE MODIFICA " +"\n" +"El código del producto no existe para modificar: " + texto,"SSSSS")
+    btn_crear.value="Agregar"
   }
   
 }
@@ -184,10 +191,7 @@ function verParaModificar(index){
 
 function eliminarProducto(index){
   //elimina en el array el producto
-  alert(index)
-  alert(items.length)
   items.splice(index,1)
-  alert(items.length)
   recargarPagina()
 }
 
@@ -204,16 +208,14 @@ function mostarProductoEnPagina(producto,indice){
   <div class="col" style="align-self: center;">  ${producto.precio} </div>
   <div class="col" style="align-self: center;">
     <button class="btn rounded-3 btn_propio botonesModificar">Modificar</button>
-    <button class="btn rounded-3 btn_propio botonesEliminar2">Eliminar2</button>
+    <button class="btn rounded-3 btn_propio botonesEliminar2">Eliminar</button>
   </div>`
   listaArt.appendChild(divprod)
   
 }
 
 function actiona(indice){
-  alert("Hello!"+ indice);
   items.splice(indice,1)
-  console.log(items)
   recargarPagina()
 
 }
