@@ -1,5 +1,29 @@
 const items =[
   {
+    nombre: "A12",
+    descripcion: "Mani Japones 120 gs",
+    precio: "2500",
+    imagen: "https://media.istockphoto.com/id/545788236/es/foto/cacahuetes-aislados-sobre-fondo-blanco.jpg?b=1&s=170667a&w=0&k=20&c=AkcVn2vkjDHzPNDGcuz90z5-WFtfCSXK4zWl1Iovh5Q="
+  },
+  {
+    nombre: "B34",
+    descripcion: "Oregano Molido 80grs",
+    precio: "1200",
+    imagen: "https://media.istockphoto.com/id/1137368036/es/foto/polvo-de-canela-con-palos-de-canela-que-se-disparan-desde-arriba-sobre-fondo-blanco.jpg?b=1&s=170667a&w=0&k=20&c=gBsonJBrTusa9lx4XFg2NUKEWXHcxlrEC6eOaOjYJPs="
+  },
+  {
+    nombre: "C78",
+    descripcion: "Comino entero 150grs",
+    precio: "1800",
+    imagen: "https://media.istockphoto.com/id/1415561628/es/foto/aceitunas-verdes-rellenas-en-un-viejo-cuenco-de-madera.jpg?b=1&s=170667a&w=0&k=20&c=3TgZWpD_bR0Ojxy_TZv0OA5DzzFAJ4w48bCq5WkP64A="
+  },
+  {
+    nombre: "AAA90",
+    descripcion: "pasas  1kilo",
+    precio: "3500",
+    imagen: "https://media.istockphoto.com/id/1415561628/es/foto/aceitunas-verdes-rellenas-en-un-viejo-cuenco-de-madera.jpg?b=1&s=170667a&w=0&k=20&c=3TgZWpD_bR0Ojxy_TZv0OA5DzzFAJ4w48bCq5WkP64A="
+  },
+  {
     nombre: "AS9834",
     descripcion: "Mani Salado 500 gs",
     precio: "7000",
@@ -34,7 +58,7 @@ let listaArt = document.getElementById("articulos")
 items.forEach((item, indice) => {
   mostarProductoEnPagina(item,indice)
 }) 
-
+mantenedor()
 
 function recargarPagina(){ 
   const titulos = document.getElementById("titulosgrilla")
@@ -76,6 +100,7 @@ function recargarPagina(){
         console.log(" Mostrar en en la pantalla el producto")
         mostarProductoEnPagina(item,indice)
       }) 
+      mantenedor()
     } 
 }
 
@@ -97,8 +122,9 @@ btn_crear.addEventListener("click",(e) => {
     }
     items.push(miProducto)
     mostarProductoEnPagina(miProducto,items.length-1)
+    limpiarFormulario()
   }
-  limpiarFormulario()
+ 
 
 })
 
@@ -108,13 +134,13 @@ function Modificar(texto){
     result.descripcion=document.getElementById("descripcion").value,
     result.precio= document.getElementById("precio").value,
     result.imagen=document.getElementById("imagen").value
-
     recargarPagina()
+    limpiarFormulario()
   }else{
    
     alert("NO SE PUEDE MODIFICA " +"\n" +"El código del producto no existe para modificar: " + texto,"SSSSS")
   }
-  limpiarFormulario()
+  
 }
 
 function limpiarFormulario(){
@@ -156,24 +182,13 @@ function verParaModificar(index){
 }
 
 
-function eliminarProducto(index,boton){
+function eliminarProducto(index){
   //elimina en el array el producto
+  alert(index)
+  alert(items.length)
   items.splice(index,1)
-  var div_padre = boton.parentElement;
-  if (div_padre != null) {
-    var div_abuelo = div_padre.parentElement;
-    if (div_abuelo != null) {
-      var emcabezado = div_abuelo.childNodes;
-      if (emcabezado != null) {
-        var children = emcabezado.childNodes;
-        for(child in children){
-          //elimina en la pantalla el producto
-          div_abuelo.remove(children[child]);
-        }
-        mantenedor()
-      }
-    }
-  }
+  alert(items.length)
+  recargarPagina()
 }
 
 function mostarProductoEnPagina(producto,indice){
@@ -189,24 +204,32 @@ function mostarProductoEnPagina(producto,indice){
   <div class="col" style="align-self: center;">  ${producto.precio} </div>
   <div class="col" style="align-self: center;">
     <button class="btn rounded-3 btn_propio botonesModificar">Modificar</button>
-    <button class="btn rounded-3 btn_propio botonesEliminar">Eliminar</button>
+    <button class="btn rounded-3 btn_propio botonesEliminar2">Eliminar2</button>
   </div>`
   listaArt.appendChild(divprod)
-  mantenedor()
+  
+}
+
+function actiona(indice){
+  alert("Hello!"+ indice);
+  items.splice(indice,1)
+  console.log(items)
+  recargarPagina()
+
 }
 
 
 function mantenedor(){
+
   const botonesModificar = document.querySelectorAll(".botonesModificar");
 // botones es un arreglo así que lo recorremos
 botonesModificar.forEach((boton,indice) => {
 	boton.addEventListener("click", function(){verParaModificar(indice)}, false);
 })
 
-const botonesEliminar = document.querySelectorAll(".botonesEliminar");
-// botones es un arreglo así que lo recorremos
-botonesEliminar.forEach((boton,indice) => {
-	boton.addEventListener("click", function(){eliminarProducto(indice,boton)}, false);
+const button2 = document.querySelectorAll(".botonesEliminar2");
+button2.forEach((boton,indice) => {
+	boton.addEventListener("click", function(){actiona(indice)}, false);
 })
 
 }
