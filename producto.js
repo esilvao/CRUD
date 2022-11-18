@@ -1,4 +1,4 @@
-const items =[
+/*const items =[
   {
     nombre: "A12",
     descripcion: "Mani Japones 120 gs",
@@ -48,9 +48,10 @@ const items =[
     imagen: "https://media.istockphoto.com/id/1415561628/es/foto/aceitunas-verdes-rellenas-en-un-viejo-cuenco-de-madera.jpg?b=1&s=170667a&w=0&k=20&c=3TgZWpD_bR0Ojxy_TZv0OA5DzzFAJ4w48bCq5WkP64A="
   }
 ]
-
+*/
 const h1 = document.createElement("h3");
 const header = document.getElementById("titulo");
+const items = JSON.parse(localStorage.getItem("misproductos"))
 h1.className="head-titulo"
 h1.innerText = 'Listado de productos'
 header.appendChild(h1);
@@ -107,31 +108,30 @@ function recargarPagina(){
 const btn_crear = document.querySelector("#agregar")
 btn_crear.addEventListener("click",(e) => {
   e.preventDefault()
-  texto=document.getElementById("codigo").value
-  if (btn_crear.value=="Modificar") {
-    Modificar(texto)
+  if ((document.getElementById("codigo").value=="") || 
+    (document.getElementById("descripcion").value=="") ||
+    (document.getElementById("precio").value=="") ||
+    (document.getElementById("imagen").value=="")) {
+      alert("Nuevo/Modificar Registro" +"\n" +"No puede tener datos en blanco"+ "/n")
   }
-  
-  else{
-    if ((document.getElementById("codigo").value=="") || 
-      (document.getElementById("descripcion").value=="") ||
-      (document.getElementById("precio").value=="") ||
-      (document.getElementById("imagen").value=="")) {
-alert("Nuevo Registro"+ "/n"+ "No puede tener datos en blanco"+ "/n")
+  else {
+    texto=document.getElementById("codigo").value
+    if (btn_crear.value=="Modificar") {
+       Modificar(texto)
+    }    
+    else{
+      const miProducto = {
+        nombre: document.getElementById("codigo").value,
+        descripcion: document.getElementById("descripcion").value,
+        precio: document.getElementById("precio").value,
+        imagen: document.getElementById("imagen").value
+      }
+      items.push(miProducto)
+      mostarProductoEnPagina(miProducto,items.length-1)
+      limpiarFormulario()
+      localStorage.setItem("misproductos",JSON.stringify(items))
     }
-
-    const miProducto = {
-      nombre: document.getElementById("codigo").value,
-      descripcion: document.getElementById("descripcion").value,
-      precio: document.getElementById("precio").value,
-      imagen: document.getElementById("imagen").value
-    }
-    items.push(miProducto)
-    mostarProductoEnPagina(miProducto,items.length-1)
-    limpiarFormulario()
   }
- 
-
 })
 
 function Modificar(texto){
@@ -142,6 +142,7 @@ function Modificar(texto){
     result.imagen=document.getElementById("imagen").value
     recargarPagina()
     limpiarFormulario()
+    localStorage.setItem("misproductos",JSON.stringify(items))
   }else{
    
     alert("NO SE PUEDE MODIFICA " +"\n" +"El código del producto no existe para modificar: " + texto,"SSSSS")
@@ -189,11 +190,6 @@ function verParaModificar(index){
 }
 
 
-function eliminarProducto(index){
-  //elimina en el array el producto
-  items.splice(index,1)
-  recargarPagina()
-}
 
 function mostarProductoEnPagina(producto,indice){
   const divprod = document.createElement("div")
@@ -214,10 +210,10 @@ function mostarProductoEnPagina(producto,indice){
   
 }
 
-function actiona(indice){
+function eliminarProducto(indice){
   items.splice(indice,1)
   recargarPagina()
-
+  localStorage.setItem("misproductos",JSON.stringify(items))
 }
 
 
@@ -231,7 +227,7 @@ botonesModificar.forEach((boton,indice) => {
 
 const button2 = document.querySelectorAll(".botonesEliminar2");
 button2.forEach((boton,indice) => {
-	boton.addEventListener("click", function(){actiona(indice)}, false);
+	boton.addEventListener("click", function(){eliminarProducto(indice)}, false);
 })
 
 }
