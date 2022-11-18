@@ -51,9 +51,20 @@
 */
 const h1 = document.createElement("h3");
 const header = document.getElementById("titulo");
-const items = JSON.parse(localStorage.getItem("misproductos"))
+let items = JSON.parse(localStorage.getItem("misproductos"))
 h1.className="head-titulo"
 h1.innerText = 'Listado de productos'
+h1.classList.add("text-center")
+if (items==null){
+   items =[
+    {
+      nombre: "A12",
+      descripcion: "Mani Japones 120 gs",
+      precio: "2500",
+      imagen: "https://media.istockphoto.com/id/545788236/es/foto/cacahuetes-aislados-sobre-fondo-blanco.jpg?b=1&s=170667a&w=0&k=20&c=AkcVn2vkjDHzPNDGcuz90z5-WFtfCSXK4zWl1Iovh5Q="
+    }]
+}
+
 header.appendChild(h1);
 let listaArt = document.getElementById("articulos")
 items.forEach((item, indice) => {
