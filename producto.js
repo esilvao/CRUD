@@ -79,7 +79,6 @@ function recargarPagina(){
       const titulos = document.getElementById("articulos")
       var children = titulos.childNodes;
       for(child in children){
-        console.log("elimina MM en la pantalla el producto")
         titulos.remove(children[child]);
       }
     }
