@@ -123,7 +123,7 @@ btn_crear.addEventListener("click",(e) => {
     (document.getElementById("descripcion").value=="") ||
     (document.getElementById("precio").value=="") ||
     (document.getElementById("imagen").value=="")) {
-      alert("Nuevo/Modificar Registro" +"\n" +"No puede tener datos en blanco"+ "/n")
+      alert("Para Nuevo y/o Modificar Registro" +"\n" +"No puede tener datos en blanco"+ "\n")
   }
   else {
     texto=document.getElementById("codigo").value
@@ -174,18 +174,23 @@ function limpiarFormulario(){
 const btn_buscar = document.querySelector("#busqueda")
 btn_buscar.addEventListener("click",(e) => {
   e.preventDefault()
+  limpiarFormulario()
   const txt_buscar = document.querySelector("#txt-busqueda")
   const result = items.filter(item =>  {
       return item.descripcion.toLowerCase().includes(txt_buscar.value.toLowerCase())
   })
-  const btn_crear = document.querySelector("#agregar")
-  btn_crear.value = "Modificar" 
-  cargarDatosEnFormulario(result,0)
+  if (result!=""){
+    const btn_crear = document.querySelector("#agregar")
+    btn_crear.value = "Modificar" 
+    cargarDatosEnFormulario(result,0)
+  }
  
 })
 
 /* cargar un producto en el formulario */
 function cargarDatosEnFormulario(items,i){
+  console.log(items)
+  console.log(i)
   document.getElementById("codigo").value=items[i].nombre
   document.getElementById("descripcion").value =  items[i].descripcion
   document.getElementById("precio").value =  items[i].precio 
