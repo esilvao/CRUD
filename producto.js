@@ -49,6 +49,7 @@
   }
 ]
 */
+// 
 const h1 = document.createElement("h3");
 const header = document.getElementById("titulo");
 let items = JSON.parse(localStorage.getItem("misproductos"))
